@@ -817,7 +817,7 @@ template(name='single_doc_edit')
     .ui.inline.header(title=key) 
         |#{label} #{title}
     each choices
-        .ui.compact.button.select_choice(class=choice_class)
+        .ui.compact.small.button.select_choice(class=choice_class)
             if icon 
                 i.icon(class=icon)
             if color_icon
@@ -1353,7 +1353,7 @@ template(name='iflat')
 
 
 template(name='icolor')
-    img(src="https://img.icons8.com/color/48/000000/#{name}.png" class=classes title=title)
+    img(src="https://img.icons8.com/dusk/48/000000/#{name}.png" class=classes title=title)
     //- img(src="https://img.icons8.com/color/48/000000/#{name}.png" class=classes title=title)
 
 

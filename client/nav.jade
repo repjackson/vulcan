@@ -2,14 +2,20 @@ template(name='nav')
     .ui.attached.fluid.borderless.topnav.menu
         //- a.icon.item.toggle_sidebar
         //-     i.large.bars.icon
-        a.header.item(href='/grid' class="{{active_path '/grid'}}" title='apps')
-            i.large.th.icon
+        //- a.header.item(href='/grid' class="{{active_path '/grid'}}" title='apps')
+        //-     i.large.th.icon
         a.icon.item.go_home(href='/' class="{{active_path '/'}}" title='models')
-            i.large.home.icon
-        a.icon.item.mobile.hidden(href='/users' class="{{active_path '/users'}}" title='users')
-            i.large.users.icon
-        a.icon.item.mobile.hidden(href="/development" class="{{active_path '/development'}}" title='development')
-            i.line.chart.large.icon
+            i.large.hammer.icon
+            |vulcan
+        if in_role 'admin'
+            a.icon.item.mobile.hidden(href='/users' class="{{active_path '/users'}}" title='users')
+                i.large.users.icon
+        if in_role 'teacher'
+            a.icon.item.mobile.hidden(href="/development" class="{{active_path '/development'}}" title='development')
+                i.line.chart.large.icon
+        if in_role 'business'
+            a.icon.item.mobile.hidden(href="/development" class="{{active_path '/development'}}" title='development')
+                i.line.chart.large.icon
         .right.menu
             if is_admin 
                 a.icon.item.mobile.hidden(href='/m/model' class="{{active_path '/m/model'}}" title="admin")
@@ -38,9 +44,100 @@ template(name='nav')
                 |login
 
 
+template(name='bottom_nav')
+        if in_role 'admin'
+            .ui.bottom.fixed.menu
+                a.icon.item.go_home(href='/' class="{{active_path '/'}}" title='models')
+                    i.large.home.icon
+                a.icon.item.mobile.hidden(href='/users' class="{{active_path '/users'}}" title='users')
+                    i.large.users.icon
+        if in_role 'business'
+            .ui.bottom.fixed.six.item.menu.mobile.only
+                a.icon.item(href='/business_home' class="{{active_path '/business_home'}}" title='home')
+                    i.home.icon
+                a.icon.item(href='/business_clients' class="{{active_path '/business_clients'}}" title='clients')
+                    i.database.icon
+                a.icon.item(href='/business_onboarding' class="{{active_path '/business_onboarding'}}" title='onboarding')
+                    i.arrow.up.icon
+                a.icon.item(href='/mail' class="{{active_path '/mail'}}" title='mail')
+                    i.chat.icon
+                a.icon.item(href='/search' class="{{active_path '/search'}}" title='search')
+                    i.search.icon
+                a.icon.item(href='/business_profile' class="{{active_path '/business_profile'}}" title='search')
+                    i.user.outline.icon
+            .ui.bottom.fixed.six.item.labeled.icon.menu.mobile.hidden
+                a.item(href='/business_home' class="{{active_path '/business_home'}}" title='home')
+                    i.home.icon
+                    |home
+                a.item(href='/business_clients' class="{{active_path '/business_clients'}}" title='clients')
+                    i.database.icon
+                    | clients
+                a.item(href='/onboarding' class="{{active_path '/business_home'}}" title='home')
+                    i.arrow.up.icon
+                    | onboarding
+                a.item(href='/chat' class="{{active_path '/chat'}}" title='home')
+                    i.chat.icon
+                    | mail
+                a.item(href='/search' class="{{active_path '/search'}}" title='search')
+                    i.search.icon
+                    | search
+                a.item(href='/business_profile' class="{{active_path '/business_profile'}}" title='search')
+                    i.user.outline.icon
+                    | profile
+                
+        if in_role 'student'
+            .ui.bottom.fixed.six.item.menu.mobile.only
+                a.icon.item(href='/student_home' class="{{active_path '/student_home'}}" title='home')
+                    i.home.icon
+                a.icon.item(href='/student_schedule' class="{{active_path '/student_schedule'}}" title='clients')
+                    i.calendar.icon
+                a.icon.item(href='/student_tasks' class="{{active_path '/student_tasks'}}" title='tasks')
+                    i.arrow.up.icon
+                a.icon.item(href='/student_development' class="{{active_path '/student_development'}}" title='home')
+                    i.line.chart.icon
+                a.icon.item(href='/student_mail' class="{{active_path '/student_mail'}}" title='mail')
+                    i.chat.icon
+                a.icon.item(href='/student_profile' class="{{active_path '/student_profile'}}" title='profile')
+                    i.user.outline.icon
+            .ui.bottom.fixed.six.item.labeled.icon.menu.mobile.hidden
+                a.item(href='/student_home' class="{{active_path '/student_home'}}" title='home')
+                    i.home.icon
+                    | home
+                a.item(href='/student_schedule' class="{{active_path '/student_schedule'}}" title='clients')
+                    i.calendar.icon
+                    | schedule
+                a.item(href='/student_tasks' class="{{active_path '/student_tasks'}}" title='tasks')
+                    i.checkmark.icon
+                    | tasks
+                a.item(href='/student_development' class="{{active_path '/student_development'}}" title='home')
+                    i.line.chart.icon
+                    | development
+                a.item(href='/student_mail' class="{{active_path '/student_mail'}}" title='mail')
+                    i.chat.icon
+                    | mail
+                a.item(href='/student_profile' class="{{active_path '/student_profile'}}" title='profile')
+                    i.user.outline.icon
+                    | profile
+            
+        if in_role 'teacher'
+            .ui.bottom.fixed.six.item.menu
+                a.icon.item(href='/student_home' class="{{active_path '/student_home'}}" title='home')
+                    i.home.icon
+                a.icon.item(href='/student_schedule' class="{{active_path '/student_schedule'}}" title='clients')
+                    i.database.icon
+                a.icon.item(href='/teacher_students' class="{{active_path '/teacher_students'}}" title='tasks')
+                    i.users.icon
+                a.icon.item(href='/student_development' class="{{active_path '/student_development'}}" title='home')
+                    i.building.icon
+                a.icon.item(href='/student_mail' class="{{active_path '/student_mail'}}" title='mail')
+                    i.chat.icon
+                a.icon.item(href='/student_profile' class="{{active_path '/student_profile'}}" title='profile')
+                    i.user.outline.icon
+            
+            
 
 template(name='footer')
-    .ui.stackable.padded.grid.basic.segment
+    .ui.stackable.padded.grid.basic.segment.mobile.hidden
         .row
             .four.wide.column
                 //- .ui.link.large.list
@@ -165,10 +262,12 @@ template(name='role_switcher')
     //-     with currentUser
     //- +multi_doc_edit key='roles' label='roles' ref_model='role' direct=true
     //- if is_admin
-        //- +multi_doc_edit key='current_roles' label='current roles' ref_model='role' direct=true
-    //- +user_array_element_toggle key='current_roles' value='admin' user=currentUser
-    //- +user_array_element_toggle key='current_roles' value='student' user=currentUser
-    //- +user_array_element_toggle key='current_roles' value='staff' user=currentUser
-    +user_array_element_toggle key='roles' value='admin' user=currentUser
+        //- +multi_doc_edit key='roles' label='current roles' ref_model='role' direct=true
+    //- +user_array_element_toggle key='roles' value='admin' user=currentUser
+    //- +user_array_element_toggle key='roles' value='staff' user=currentUser
     +user_array_element_toggle key='roles' value='dev' user=currentUser
+    +user_array_element_toggle key='roles' value='admin' user=currentUser
+    +user_array_element_toggle key='roles' value='student' user=currentUser
+    +user_array_element_toggle key='roles' value='business' user=currentUser
+    +user_array_element_toggle key='roles' value='teacher' user=currentUser
     //- +user_array_element_toggle key='roles' value='parent' user=currentUser

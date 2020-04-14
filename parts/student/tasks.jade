@@ -1,5 +1,10 @@
-template(name='tasks')
+template(name='student_tasks')
     .ui.stackable.padded.grid
+        .row
+            .sixteen.wide.column
+                .ui.header
+                    +icolor name='tasks'
+                    |tasks
         .row
             .sixteen.wide.column
                 .ui.header school work
@@ -16,6 +21,7 @@ template(name='tasks')
                 .ui.segment
                     .ui.header business
 
+        .row
             .sixteen.wide.column
                 .ui.header internship opportunities
             .four.wide.column

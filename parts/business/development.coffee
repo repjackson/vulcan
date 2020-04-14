@@ -1,16 +1,16 @@
 if Meteor.isClient
-    Router.route '/development/', (->
+    Router.route '/business_development/', (->
         @layout 'layout'
-        @render 'development'
-        ), name:'development'
-    Router.route '/task/:doc_id/view', (->
-        @layout 'layout'
-        @render 'task_view'
-        ), name:'task_view'
-    Router.route '/task/:doc_id/edit', (->
-        @layout 'layout'
-        @render 'task_edit'
-        ), name:'task_edit'
+        @render 'business_development'
+        ), name:'business_development'
+    # Router.route '/task/:doc_id/view', (->
+    #     @layout 'layout'
+    #     @render 'task_view'
+    #     ), name:'task_view'
+    # Router.route '/task/:doc_id/edit', (->
+    #     @layout 'layout'
+    #     @render 'task_edit'
+    #     ), name:'task_edit'
 
 
     Template.task_view.onCreated ->

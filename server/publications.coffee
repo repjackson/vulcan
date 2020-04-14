@@ -7,6 +7,7 @@ Meteor.publish 'model_docs', (model)->
     # console.log 'pulling doc'
     Docs.find
         model:model
+        app:'vulcan'
 
 Meteor.publish 'user_from_username', (username)->
     # console.log 'pulling doc'

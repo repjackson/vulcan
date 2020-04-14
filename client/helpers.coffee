@@ -65,6 +65,14 @@ Template.registerHelper 'key_value_isnt', (key, value)->
     @["#{key}"] isnt value
 
 
+Template.registerHelper 'in_role', (role)->
+    if Meteor.user() and Meteor.user().roles
+        if role in Meteor.user().roles
+            true
+        else
+            false
+    else
+        false
 
 Template.registerHelper 'is_streamable', () ->
     @domain is 'streamable.com'

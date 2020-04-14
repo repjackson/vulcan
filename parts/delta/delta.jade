@@ -5,20 +5,6 @@ template(name='delta')
                 .five.wide.column
                     a.ui.basic.icon.button.go_home(href='/m/model' class="{{active_path '/m/model'}}" title='models')
                         i.large.home.icon
-                    if currentUser
-                        a.ui.icon.button(href='/m/alerts' class="{{active_path '/m/alerts'}}" title='alerts') 
-                            i.bell.large.icon(class=alert_icon_class)
-                        //- a.item(href="/user/#{currentUser.username}/karma")
-                        //-     |#{currentUser.karma}
-                        //-     //- i.line.chart.icon
-                        a.ui.basic.button(href="/user/#{currentUser.username}") 
-                            i.user.icon
-                            |#{currentUser.username}
-                    else 
-                        a.ui.basic.button(href="/login")
-                            i.sign.in.alternate.icon
-                            |login
-
                     if is_loading
                         .ui.inline.header.pulsing
                             //- i.yin.yang.loading.large.icon

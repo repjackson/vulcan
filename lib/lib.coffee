@@ -45,7 +45,7 @@ Docs.before.insert (userId, doc)->
     year = moment(timestamp).format('YYYY')
 
 
-    doc.app = 'juntos'
+    doc.app = 'vulcan'
     # date_array = [ap, "hour #{hour}", "min #{minute}", weekday, month, date, year]
     date_array = [ap, weekday, month, date, year]
     if _
@@ -89,6 +89,9 @@ Docs.helpers
                 downvoter = Meteor.users.findOne downvoter_id
                 downvoters.push downvoter
             downvoters
+
+
+
 Meteor.users.helpers
     name: ->
         if @nickname

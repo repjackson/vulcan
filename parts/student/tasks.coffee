@@ -1,8 +1,8 @@
 if Meteor.isClient
-    Router.route '/tasks/', (->
+    Router.route '/student_tasks/', (->
         @layout 'layout'
-        @render 'tasks'
-        ), name:'tasks'
+        @render 'student_tasks'
+        ), name:'student_tasks'
     Router.route '/task/:doc_id/view', (->
         @layout 'layout'
         @render 'task_view'

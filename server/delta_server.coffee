@@ -70,7 +70,8 @@ Meteor.methods
             slug:delta.model_filter
 
         # console.log 'running fum,', delta, model
-        built_query = {}
+        # built_query = { app:'vulcan' }
+        built_query = { }
         if delta.search_query
             built_query.title = {$regex:"#{delta.search_query}", $options: 'i'}
 

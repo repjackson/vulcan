@@ -233,10 +233,11 @@ if Meteor.isClient
                         #     Session.set 'enter_mode', 'register'
                         #     Session.set 'username', "#{username}"
                     else
-                        # Meteor.users.update Meteor.userId(),
-                        #     $set:
-                        #         first_name: Session.get('first_name')
-                        #         last_name: Session.get('last_name')
+                        Meteor.users.update Meteor.userId(),
+                            $set:
+                                app:'vulcan'
+                                first_name: Session.get('first_name')
+                                last_name: Session.get('last_name')
                         # new_classroom_id = Docs.insert
                         #     model: 'classroom'
                         #     teacher_id: Meteor.userId()
