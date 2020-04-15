@@ -43,6 +43,14 @@ globalHotkeys.add
                 Meteor.users.update Meteor.userId(), $pull:roles:'student'
             else
                 Meteor.users.update Meteor.userId(), $addToSet:roles:'student'
+globalHotkeys.add
+	combo: "r b"
+	callback: ->
+        if Meteor.userId() and Meteor.userId() in ['vwCi2GTJgvBJN5F6c']
+            if 'business' in Meteor.user().roles
+                Meteor.users.update Meteor.userId(), $pull:roles:'business'
+            else
+                Meteor.users.update Meteor.userId(), $addToSet:roles:'business'
 # globalHotkeys.add
 # 	combo: "r m"
 # 	callback: ->

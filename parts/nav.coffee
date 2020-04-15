@@ -35,6 +35,8 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'all_users'
         # @autorun => Meteor.subscribe 'global_settings'
         @autorun => Meteor.subscribe 'my_cart'
+        @autorun => Meteor.subscribe 'model_docs', 'field_type'
+
 
         # @autorun -> Meteor.subscribe 'current_session'
         # @autorun -> Meteor.subscribe 'unread_messages'

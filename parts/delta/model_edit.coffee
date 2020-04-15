@@ -61,8 +61,18 @@ if Meteor.isClient
                 edit_roles: ['dev', 'admin', 'user']
 
     Template.field_edit.helpers
-        is_ref: -> @field_type in ['single_doc', 'multi_doc','children']
-        is_user_ref: -> @field_type in ['single_user', 'multi_user']
+        is_ref: ->
+            ref_field_types =
+                Docs.find(
+                    model:'field_type'
+                    slug: $in: ['single_doc', 'multi_doc','children']
+                ).fetch()
+            ids = _.pluck(ref_field_types, '_id')
+            # console.log ids
+            @field_type_id in ids
+
+        is_user_ref: ->
+            @field_type in ['single_user', 'multi_user']
 
 
 

@@ -5,11 +5,9 @@ if Meteor.isClient
 
     Template.delta.onCreated ->
         @autorun -> Meteor.subscribe 'me'
-
         @autorun -> Meteor.subscribe 'model_from_slug', Router.current().params.model_slug
         @autorun -> Meteor.subscribe 'model_fields_from_slug', Router.current().params.model_slug
         @autorun -> Meteor.subscribe 'my_delta'
-        @autorun -> Meteor.subscribe 'model_docs', 'dish'
         Session.set 'loading', true
         Meteor.call 'set_facets', Router.current().params.model_slug, ->
             Session.set 'loading', false
@@ -17,6 +15,10 @@ if Meteor.isClient
     #     Meteor.call 'log_view', @_id, ->
 
     Template.delta.helpers
+        table_header_column: ->
+            console.log @
+
+
         model_fields: ->
             delta = Docs.findOne model:'delta'
             model = Docs.findOne model:'model'
@@ -85,6 +87,8 @@ if Meteor.isClient
     Template.delta.events
         'click .toggle_sort_column': ->
             console.log @
+            delta = Docs.findOne model:'delta'
+            console.log delta
 
 
         'click .go_home': ->

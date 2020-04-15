@@ -82,37 +82,53 @@ template(name='field_edit')
             if icon
                 +icolor name=icon classes='ui mini inline image'
                 //- i.icon(class=icon)
-            |#{title} (#{field_type})
+            strong #{title}
+            | (#{field_type})
             if faceted
                 i.filter.icon
             if sortable
                 i.sort.amount.down.icon
             each view_roles
                 .ui.basic.label #{this}
-            i.large.dropdown.icon
+            .ui.circular.icon.compact.basic.button
+                i.up.caret.icon
+            .ui.circular.icon.compact.basic.button
+                i.down.caret.icon
+            if viewing_content    
+                i.large.caret.down.icon
+            else 
+                i.large.caret.right.grey.icon
         if viewing_content
             .content
                 +text_edit key='title' direct=true label='title'        
                 +text_edit key='key'  direct=true label='key'           
                 +number_edit key='rank' label='rank' direct=true      
                 +color_icon_edit key='icon' label='color icon' direct=true       
-                +textarea_edit key='description' label='description' direct=true
+                //- +textarea_edit key='description' label='description' direct=true
+                .spacer
                 if is_admin
-                    +text_edit key='field_type' direct=true label='field type'              
-                +single_doc_edit key='field_type' ref_model='field_type' label='field type' direct=true                 
+                    +text_edit key='field_type' direct=true label='field type (old slug)'              
+                //- +single_doc_edit key='field_type' ref_model='field_type' label='field type' direct=true        
+                .spacer
+                +text_edit key='field_type_id' label='field type id' direct=true        
+                +single_doc_edit key='field_type_id' ref_model='field_type' label='field type id' direct=true        
+                .spacer
                 +multi_doc_edit key='view_roles' ref_model='role' label='view roles' direct=true icon='eye'          
+                .spacer
                 +multi_doc_edit key='edit_roles' ref_model='role' label='edit roles' direct=true icon='pencil'        
                 //- +text_edit key='ref_model' label='Reference Model' direct=true
-                div
+                .spacer
                 +boolean_edit key='faceted' label='faceted' color_icon='diamond' direct=true
                 +boolean_edit key='sortable' label='sortable' color_icon='chevron-down' direct=true
+                .spacer
                 if is_ref  
                     +single_doc_edit key='ref_model' ref_model='model' label='reference model' direct=true
-                else if is_user_ref  
+                else if is_user_ref
                     +single_doc_edit key='role_filter' ref_model='role' label='role filter' direct=true
                 div             
                 +remove_button
-                
+                if is_admin
+                    +print_this
 //- template(name='view_model')
         
 template(name='field_view')

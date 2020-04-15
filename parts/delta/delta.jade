@@ -57,7 +57,6 @@ template(name='delta')
                         else
                             i.search.icon
                         input#search(type='text' autocomplete="off" value=current_delta.search_query)
-                    
                     unless single_doc
                         //- .ui.basic.segment(class=loading_class)
                         //- .ui.inline.small.grey.header(title='change sort direction')
@@ -129,11 +128,12 @@ template(name='delta')
                                 each current_delta.result_ids
                                     +delta_result_card
                         if delta_key_value_is 'view_mode' 'table'
-                            table.ui.table 
+                            table.ui.selectable.table 
                                 thead
-                                    tr 
+                                    tr
                                         each current_delta.viewing_fields
-                                            th.pointer.toggle_sort_column #{title}
+                                            th.pointer.toggle_sort_column(class=table_column_header_class)
+                                                | #{title}
                                 tbody
                                     each current_delta.result_ids
                                         +delta_result_table_row
@@ -150,7 +150,7 @@ template(name='delta')
                                             .line
                                             .line
                                 else 
-                                    +delta_result
+                                    +delta_list_result
                     //- +Template.dynamic template=view_mode_template
             //- .row 
             //-     .sixteen.wide.column
@@ -184,7 +184,7 @@ template(name='delta_table')
 template(name='delta_list')
     each current_delta.result_ids
         //- .column
-        +delta_result
+        +delta_list_result
                         
                     
                         
@@ -233,6 +233,8 @@ template(name='facet')
                     strong [null]
                     //- small #{cal_count}
         //- .ui.hidden.divider
+        
+        
 template(name='toggle_delta_config')
     if boolean_true
         .ui.active.icon.button.disable_key(title=label)

@@ -19,6 +19,7 @@ template(name='model_doc_edit')
                         //- |#{model}
                         each edit_fields
                             +Template.dynamic template=edit_template 
+                            .spacer
                             // .ui.header #{key} [#{field}] #{label}
                 //- if watson 
                 //-     .row

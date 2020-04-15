@@ -809,8 +809,11 @@ template(name='single_doc_view')
     if field_value
         .ui.inline.header(title=key)
             |#{title}
-        .ui.basic.label
-            |#{field_value}
+        a.ui.basic.button(href="/m/#{related_doc.model}/#{related_doc._id}/view")
+            if related_doc.image_id
+                img.ui.avatar.image(src="{{c.url related_doc.image_id width=200 height=200 gravity='face' crop='fill'}}")
+            |#{related_doc.title}
+            //- |#{field_value}
 
 
 template(name='single_doc_edit')
@@ -836,7 +839,8 @@ template(name='multi_doc_edit')
             if image_id
                 img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}")
             if icon 
-                i.icon(class=icon)    
+                +icolor name=icon
+                //- i.icon(class=icon)    
             //- |#{slug}
             if title
                 |#{title}

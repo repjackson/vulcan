@@ -707,12 +707,18 @@ Template.textarea_view.onRendered ->
 
 
 Template.single_doc_view.onCreated ->
-    # @autorun => Meteor.subscribe 'model_docs', @data.ref_model
+    @autorun => Meteor.subscribe 'doc', Template.parentData(5)["#{@data.key}"]
 
 Template.single_doc_view.helpers
+    related_doc: ->
+        field_value =  Template.parentData(5)["#{@key}"]
+        Docs.findOne field_value
+        # console.log Template.currentData()
+
     choices: ->
         Docs.find
             model:@ref_model
+
 
 
 
@@ -726,6 +732,7 @@ Template.single_doc_edit.helpers
             Docs.find {
                 model:@ref_model
             }, sort:slug:1
+
     calculated_label: ->
         ref_doc = Template.currentData()
         key = Template.parentData().button_label
@@ -737,16 +744,21 @@ Template.single_doc_edit.helpers
         ref_field = Template.parentData(1)
         if ref_field.direct
             parent = Template.parentData(2)
+            # target = Docs.findOne Router.current().params.doc_id
+            target = Template.parentData(2)
         else
             parent = Template.parentData(5)
-        target = Template.parentData(2)
+            target = Template.parentData(2)
+        # console.log 'target', target
+        # console.log 'parent', parent
+        # console.log 'ref field', ref_field
         if @direct
             if target["#{ref_field.key}"]
                 if @ref_field is target["#{ref_field.key}"] then 'active' else 'basic'
             else ''
         else
-            if parent["#{ref_field.key}"]
-                if @slug is parent["#{ref_field.key}"] then 'active' else 'basic'
+            if target["#{ref_field.key}"]
+                if @_id is target["#{ref_field.key}"] then 'active' else 'basic'
             else 'basic'
 
 
@@ -762,8 +774,6 @@ Template.single_doc_edit.events
 
         # key = ref_field.button_key
         key = ref_field.key
-
-
         # if parent["#{key}"] and @["#{ref_field.button_key}"] in parent["#{key}"]
         if parent["#{key}"] and @slug in parent["#{key}"]
             doc = Docs.findOne parent._id
@@ -777,13 +787,14 @@ Template.single_doc_edit.events
         else
             doc = Docs.findOne parent._id
             user = Meteor.users.findOne parent._id
-
             if doc
                 Docs.update parent._id,
-                    $set: "#{ref_field.key}": @slug
+                    $set: "#{ref_field.key}": @_id
             else if user
                 Meteor.users.update parent._id,
-                    $set: "#{ref_field.key}": @slug
+                    $set: "#{ref_field.key}": @_id
+
+
 
 
 Template.multi_doc_view.onCreated ->
@@ -805,10 +816,15 @@ Template.multi_doc_view.helpers
 
 
 Template.multi_doc_edit.onCreated ->
-    @autorun => Meteor.subscribe 'model_docs', @data.ref_model
+    @autorun => Meteor.subscribe 'model_docs_from_model_id', @data.ref_model
+    @autorun => Meteor.subscribe 'doc', @data.ref_model
 Template.multi_doc_edit.helpers
     choices: ->
-        Docs.find model:@ref_model
+        console.log @
+        model = Docs.findOne @ref_model
+        Docs.find
+            model:model.slug
+
     choice_class: ->
         selection = @
         current = Template.currentData()

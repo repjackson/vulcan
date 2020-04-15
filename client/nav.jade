@@ -4,7 +4,7 @@ template(name='nav')
         //-     i.large.bars.icon
         //- a.header.item(href='/grid' class="{{active_path '/grid'}}" title='apps')
         //-     i.large.th.icon
-        a.icon.item.go_home(href='/' class="{{active_path '/'}}" title='models')
+        a.item.go_home(href='/' class="{{active_path '/'}}" title='models')
             i.large.hammer.icon
             |vulcan
         if in_role 'admin'
@@ -23,13 +23,13 @@ template(name='nav')
                 
             //- a.icon.item.mobile.hidden(href='/cart' class="{{active_path '/cart'}}" title="shopping cart #{cart_amount} items")
             //-     i.shopping.cart.large.icon
-            a.mobile.hidden.icon.item(href='/tasks' class="{{active_path '/tasks'}}" title='tasks') 
+            a.mobile.hidden.icon.item(href='/m/task' class="{{active_path '/m/task'}}" title='tasks') 
                 i.tasks.large.icon
-            a.mobile.hidden.icon.item(href='/events' class="{{active_path '/events'}}" title='events') 
+            a.mobile.hidden.icon.item(href='/m/event' class="{{active_path '/m/event'}}" title='events') 
                 i.calendar.large.icon
-            a.icon.item(href='/chat' class="{{active_path '/chat'}}" title='chat') 
+            a.icon.item(href='/m/message' class="{{active_path '/m/message'}}" title='chat') 
                 i.chat.outline.large.icon
-            a.icon.item(href='/alerts' class="{{active_path '/alerts'}}" title='alerts') 
+            a.icon.item(href='/m/alert' class="{{active_path '/m/alert'}}" title='alerts') 
                 i.bell.large.icon(class=alert_icon_class)
         if currentUser
             //- a.item(href="/user/#{currentUser.username}/karma")
@@ -153,19 +153,16 @@ template(name='footer')
                 //-     //-     | sponsor
             .four.wide.column
                 .ui.link.large.list
-                    a.item(href='/blog')
-                        i.blog.icon
-                        | blog
                     a.item(href='/m/model' class="{{active_path '/m/model'}}")
                         i.database.icon
                         |models
-                    a.icon.item(href='/events' class="{{active_path '/events'}}")
+                    a.icon.item(href='/m/event' class="{{active_path '/m/event'}}")
                         i.calendar.icon
                         |events
-                    a.icon.item(href='/chat' class="{{active_path '/chat'}}")
+                    a.icon.item(href='/m/message' class="{{active_path '/m/message'}}")
                         i.chat.outline.icon
-                        |chat
-                    a.icon.item(href='/alerts' class="{{active_path '/alerts'}}")
+                        |mail
+                    a.icon.item(href='/m/alert' class="{{active_path '/m/alert'}}")
                         //- i.bell.icon(class=alert_icon_class)
                         i.rss.icon
                         |alerts
@@ -187,14 +184,14 @@ template(name='footer')
             .four.wide.column
 
                 +footer_chat
-                if is_admin
-                    with currentUser
-                        +role_switcher
+                //- if is_admin
+                with currentUser
+                    +role_switcher
             .four.wide.column
                 +bug_reporter 
                 .ui.grey.small.header    
                     i.copyright.outline.icon 
-                    |2020 whats cooking
+                    |2020 vulcan technologies, llc
             //- 
 template(name='footer_chat')
     a.ui.grey.header(href="/chat")
@@ -265,8 +262,9 @@ template(name='role_switcher')
         //- +multi_doc_edit key='roles' label='current roles' ref_model='role' direct=true
     //- +user_array_element_toggle key='roles' value='admin' user=currentUser
     //- +user_array_element_toggle key='roles' value='staff' user=currentUser
-    +user_array_element_toggle key='roles' value='dev' user=currentUser
-    +user_array_element_toggle key='roles' value='admin' user=currentUser
+    if is_dev
+        //- +user_array_element_toggle key='roles' value='dev' user=currentUser
+        +user_array_element_toggle key='roles' value='admin' user=currentUser
     +user_array_element_toggle key='roles' value='student' user=currentUser
     +user_array_element_toggle key='roles' value='business' user=currentUser
     +user_array_element_toggle key='roles' value='teacher' user=currentUser

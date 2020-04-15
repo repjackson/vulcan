@@ -5,9 +5,19 @@ Meteor.publish 'current_doc ', (doc_id)->
 
 Meteor.publish 'model_docs', (model)->
     # console.log 'pulling doc'
+    if model is 'field_type'
+        Docs.find
+            model:model
+    else
+        Docs.find
+            model:model
+            app:'vulcan'
+
+Meteor.publish 'model_docs_from_model_id', (model_id)->
+    model = Docs.findOne model_id
+    # console.log 'pulling doc'
     Docs.find
-        model:model
-        app:'vulcan'
+        model:model.slug
 
 Meteor.publish 'user_from_username', (username)->
     # console.log 'pulling doc'

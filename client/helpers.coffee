@@ -228,9 +228,35 @@ Template.registerHelper 'is_eric', ()-> if Meteor.userId() and Meteor.userId() i
 Template.registerHelper 'publish_when', ()-> moment(@publish_date).fromNow()
 
 
+Template.registerHelper 'field_type_doc', ->
+    doc =
+        Docs.findOne
+            model:'field_type'
+            _id: @field_type_id
+    if doc
+        console.log 'found field_type doc', doc
+    else
+        console.log 'NO found field_type doc'
+    doc
 
-Template.registerHelper 'view_template', -> "#{@field_type}_view"
-Template.registerHelper 'edit_template', -> "#{@field_type}_edit"
+
+Template.registerHelper 'view_template', ->
+    field_type_doc =
+        Docs.findOne
+            model:'field_type'
+            _id: @field_type_id
+
+    # console.log 'field type doc', field_type_doc
+    "#{field_type_doc.slug}_view"
+
+
+Template.registerHelper 'edit_template', ->
+    field_type_doc =
+        Docs.findOne
+            model:'field_type'
+            _id: @field_type_id
+    # console.log 'field type doc', field_type_doc
+    "#{field_type_doc.slug}_edit"
 
 Template.registerHelper 'current_model', ->
     Docs.findOne
