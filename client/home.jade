@@ -7,25 +7,44 @@ template(name='home')
         span
         span
     .ui.stackable.padded.grid
-        .sixteen.wide.center.aligned.column
-            +inolan name='hammer-and-anvil' 
-            h1.ui.big.inline.header 
-                |vulcan
-        .sixteen.wide.column
-            .ui.header
-                |Vulcan is a Web Application that connects, educates, and develops students for Career
-                |and Technical Education related Industries. This app will serve to aid CTE teachers in
-                |managing their students by communicating with Business Partners, tracking student
-                |data/internships, and organizing Business Partner portfolios and success. 
-            .ui.header
-                |Additionally,
-                |students will be able to search for careers, build a living resume portfolio, and manage
-                |their education/career development through calendar and checklist capabilities. 
-            .ui.header
-                |Lastly,
-                |businesses will be able to post jobs, use helpful onboarding/internship tools, and track
-                |fiscal progress by filling positions and fulfilling yearly goals.
-
+        .row
+            .sixteen.wide.center.aligned.column
+                .ui.big.inline.header 
+                    +icolor name='hammer-and-anvil' 
+                    |vulcan
+        .row
+            .sixteen.wide.column
+                .ui.header
+                    |Vulcan is a Web Application that connects, educates, and develops students for Career
+                    |and Technical Education related Industries. This app will serve to aid CTE teachers in
+                    |managing their students by communicating with Business Partners, tracking student
+                    |data/internships, and organizing Business Partner portfolios and success. 
+                .ui.header
+                    |Additionally,
+                    |students will be able to search for careers, build a living resume portfolio, and manage
+                    |their education/career development through calendar and checklist capabilities. 
+                .ui.header
+                    |Lastly,
+                    |businesses will be able to post jobs, use helpful onboarding/internship tools, and track
+                    |fiscal progress by filling positions and fulfilling yearly goals.
+        .three.column.row
+            .column
+                .ui.segment
+                    .ui.header
+                        +icolor name='classroom'
+                        |students
+            .column
+                .ui.segment
+                    .ui.header
+                        +icolor name='shield'
+                        |educators
+            .column
+                .ui.segment
+                    .ui.header
+                        +icolor name='business'
+                        |business
+            .column
+            .column
         if in_role 'admin'
             .ui.header admin
         if in_role 'student'

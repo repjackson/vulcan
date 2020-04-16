@@ -3,8 +3,9 @@ template(name='delta')
         with current_model
             .row
                 .five.wide.column
-                    a.ui.basic.icon.button.go_home(href='/m/model' class="{{active_path '/m/model'}}" title='models')
-                        i.large.home.icon
+                    if is_admin
+                        a.ui.basic.icon.button.go_home(href='/m/model' class="{{active_path '/m/model'}}" title='models')
+                            i.large.home.icon
                     if is_loading
                         .ui.inline.header.pulsing
                             //- i.yin.yang.loading.large.icon
@@ -18,11 +19,11 @@ template(name='delta')
                             +icolor name=color_icon
                             | #{title}
                     unless is_loading
-                        if currentUser
+                        //- if currentUser
+                        if is_admin
                             .ui.icon.compact.basic.button.add_model_doc(title="add #{slug}")
                                 i.plus.large.green.icon
                         //- +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' label="bookmark"
-                        if is_admin
                             .ui.icon.basic.button.edit_model(title='configure model')
                                 i.cog.icon
                         if current_delta

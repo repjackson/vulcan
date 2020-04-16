@@ -1,40 +1,4 @@
-template(name='internship')
-    .ui.card
-        if picture
-            img.ui.image(src="{{c.url picture width=400 height=400}}")
-        else
-            img.ui.image(src="{{c.url image width=400 height=400 gravity='face' crop='fill'}}")
-        .content
-            a.ui.header(href="/internship/#{_id}") #{title}
-            div created {{from_now _timestamp}}
-            div available {{from_now date}}
-            +edit_button
-            +view_button
-            |available servings: #{available_servings}
-
-            if servings_available
-                .ui.button.internship_sign_up
-                    |sign up
-
-
-template(name='internship_widget')
-    .ui.segment
-        a.ui.header(href='/internships')
-            i.glass.cheers.icon
-            |internshipsharing
-        .ui.header upcoming internships
-        .ui.list
-            each internships
-                .item
-                    |#{title}
-                    each ingredients
-                        .ui.basic.label #{this}
-        .ui.button become a cook
-
-
-
-
-template(name='internship_card_template')
+template(name='internship_card')
     .ui.stackable.grid.segment
         .four.wide.column
             //- img.ui.fluid.image(src="{{c.url image }}")
@@ -84,6 +48,15 @@ template(name='internship_view')
                 img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
                 +html_view key='description' direct=true
                 +comments
+                .ui.header 
+                    +icolor name='invoice'
+                    |applications
+                unless has_applied
+                    .ui.button.apply
+                        i.green.edit.icon
+                        |apply
+                each internship_applications
+                    .ui.header hi
             .five.wide.column
                 a.ui.large.basic.button(href="/internship/#{_id}/edit")
                     i.pencil.icon
