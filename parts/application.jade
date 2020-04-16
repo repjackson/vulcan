@@ -1,11 +1,34 @@
 template(name='application_view')
     with current_doc
         .ui.stackable.padded.grid
+            .row
+                .sixteen.center.aligned.column
+                    .ui.header 
+                        +icolor name='invoice'
+                        |application
             .five.wide.column
                 .ui.header #{title}
-                +array_view key='tags' direct=true
-                +array_view key='skill_tags' direct=true
-                +array_view key='location_tags' direct=true
+                .ui.segment
+                    .ui.header 
+                        +icolor name='business'
+                        |business
+                    with business_doc
+                        .ui.header #{title}
+                        a.ui.basic.fluid.button(href="/business/#{_id}/view")
+                            |view
+                            i.chevron.right.icon
+                .ui.segment
+                    .ui.header 
+                        +icolor name='work'
+                        |internship
+                    with internship_doc
+                        .ui.header #{title}
+                        a.ui.basic.bottom.attached.button(href="/internship/#{_id}/view")
+                            |view
+                            i.chevron.right.icon
+                    
+                .ui.segment
+                    .ui.header applicant
             .six.wide.column
                 img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
                 +html_view key='description' direct=true
@@ -14,6 +37,8 @@ template(name='application_view')
                 a.ui.large.basic.button(href="/application/#{_id}/edit")
                     i.pencil.icon
                     |edit
+                if is_admin 
+                    +print_this
                 .ui.header business 
                 a.ui.header(href="/business/#{business_id}/view") #{business_doc.title}
                 with _author_id

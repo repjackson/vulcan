@@ -11,6 +11,7 @@ if Meteor.isClient
     Template.application_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'model_docs', 'business'
+        @autorun => Meteor.subscribe 'model_docs', 'internship'
     Template.application_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
 

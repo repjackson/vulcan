@@ -45,6 +45,12 @@ Template.registerHelper 'youtube_id', () ->
 Template.registerHelper 'business_doc', ()->
     Docs.findOne @business_id
 
+Template.registerHelper 'internship_doc', ()->
+    Docs.findOne @internship_id
+
+
+
+
 Template.registerHelper 'delta_key_value_is', (key, value)->
     # console.log 'key', key
     # console.log 'value', value
@@ -312,3 +318,11 @@ Template.registerHelper 'edit_fields', () ->
 
 Template.registerHelper 'is_an_admin', ()->
     if Meteor.userId() and Meteor.userId() in ['vwCi2GTJgvBJN5F6c'] then true else false
+
+
+
+
+Template.registerHelper 'internship_applications', ()->
+    Docs.find
+        model:'application'
+        internship_id: @_id

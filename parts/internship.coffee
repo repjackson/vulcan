@@ -27,17 +27,6 @@ if Meteor.isClient
                     business_id: internship.business_id
             Router.go "/application/#{new_id}/edit"
 
-    Template.internship_applications.onCreated ->
-        @autorun => Meteor.subscribe 'model_docs', 'review'
-    Template.internship_applications.helpers
-        can_leave_review: ->
-            found_review =
-                Docs.findOne
-                    _author_id:Meteor.userId()
-                    model:'review'
-                    parent_id:Router.current().params.doc_id
-            if found_review then false else true
-        reviews: ->
-            Docs.find
-                model: 'review'
-                parent_id:Router.current().params.doc_id
+
+    Template.internship_view.helpers
+        

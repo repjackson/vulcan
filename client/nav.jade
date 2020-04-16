@@ -4,9 +4,9 @@ template(name='nav')
         //-     i.large.bars.icon
         //- a.header.item(href='/grid' class="{{active_path '/grid'}}" title='apps')
         //-     i.large.th.icon
-        a.item.go_home(href='/' class="{{active_path '/'}}" title='models')
-            i.large.hammer.icon
-            |vulcan
+        a.header.item(href='/' class="{{active_path '/'}}" title='models')
+            +icolor name='hammer-and-anvil' 
+            |Vulcan
         a.icon.item.mobile.hidden(href="/m/internship" class="{{active_path '/m/internship'}}" title='internships')
             +icolor name='work'
         a.icon.item.mobile.hidden(href="/m/business" class="{{active_path '/m/business'}}" title='businesses')
@@ -146,7 +146,7 @@ template(name='bottom_nav')
             
 
 template(name='footer')
-    .ui.stackable.padded.grid.basic.segment.mobile.hidden
+    .ui.stackable.padded.grid.secondary.segment.mobile.hidden
         .row
             .four.wide.column
                 //- .ui.link.large.list
@@ -161,15 +161,22 @@ template(name='footer')
                 //-     //- a.item(href='/sponsor') 
                 //-     //-     | sponsor
             .four.wide.column
-                .ui.link.large.list
-                    a.item(href='/m/model' class="{{active_path '/m/model'}}")
-                        i.database.icon
-                        |models
+                .ui.selection.animated.list
+                    if is_admin
+                        a.item(href='/m/model' class="{{active_path '/m/model'}}")
+                            i.database.icon
+                            |models
+                    a.icon.item(href='/m/internship' class="{{active_path '/m/internship'}}")
+                        +icolor name='work' classes='ui avatar image'
+                        |internships
+                    a.icon.item(href='/m/business' class="{{active_path '/m/business'}}")
+                        +icolor name='business' classes='ui avatar image'
+                        |businesses
                     a.icon.item(href='/m/event' class="{{active_path '/m/event'}}")
-                        i.calendar.icon
+                        +icolor name='calendar' classes='ui avatar image'
                         |events
                     a.icon.item(href='/m/message' class="{{active_path '/m/message'}}")
-                        i.chat.outline.icon
+                        +icolor name='chat' classes='ui avatar image'
                         |mail
                     a.icon.item(href='/m/alert' class="{{active_path '/m/alert'}}")
                         //- i.bell.icon(class=alert_icon_class)
@@ -180,9 +187,6 @@ template(name='footer')
                         a.item(href='/users')
                             i.users.icon
                             | users
-                        a.item(href='/stats')
-                            i.line.chart.icon
-                            | stats
                 unless currentUser
                     .ui.link.large.list
                         a.item(href='/login')

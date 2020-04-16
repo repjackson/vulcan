@@ -1,59 +1,91 @@
+template(name='business_item')
+    .ui.segment.grid
+        .four.wide.column
+            .image
+                +image_view key='image_id' direct=true
+        .twelve.wide.column
+            .ui.header #{title}
+            a.ui.button(href="/business/#{_id}/view")
+                |view
+
 template(name='business_view')
-    a.ui.basic.button(href="/m/business")
-        |businesses
     with current_doc
         .ui.stackable.padded.grid
-            .five.wide.column
-                .ui.header #{title}
-                +array_view key='tags' direct=true
-                +html_view key='description' direct=true
-                +image_view key='image_id' direct=true
-                +array_view key='location_tags' direct=true
-            .six.wide.column
-                +comments
-                .ui.header
-                    +icolor name='work'
-                    | internships
-                if is_employee
-                    .ui.button
-                        |add internship
-                each business_internships
-                    .ui.segment
-                        a.ui.header(href="/internship/#{_id}/view") #{title}
-            .five.wide.column
-                a.ui.large.basic.button(href="/m/business/#{_id}/edit")
-                    i.pencil.icon
-                    |edit
-                .ui.header 
-                    +icolor name='briefcase'
-                    |employees
-                .ui.header 
-                    +icolor name='filled-flag'
-                    |fans
-                if is_fan
-                    .ui.icon.compact.button.remove_fan(title='leave fans')
-                        i.remove.icon
-                else 
-                    .ui.icon.button.become_fan(title='become fan')
-                        i.plus.icon
-                .ui.selection.list
-                    each business_fans
-                        a.item(href="/user/#{username}") #{username}
-                    
-                //- 
-                //- with _author_id
-                //-     +user_card
-                //- with current_doc
-                //-     +voting_full
+            .row
+                .four.wide.center.aligned.column
+                    a.ui.basic.button(href="/m/business")
+                        |businesses
+                .eight.wide.center.aligned.column
+                    .ui.header 
+                        +icolor name='business'
+                        |#{title}
+                .four.wide.center.aligned.column
+                    if can_edit
+                        a.ui.large.basic.button(href="/m/business/#{_id}/edit")
+                            i.pencil.icon
+                            |edit
+            .row
+                .five.wide.column
+                    +array_view key='tags' direct=true
+                    +html_view key='description' direct=true
+                    +image_view key='image_id' direct=true
+                    +array_view key='location_tags' direct=true
+                .six.wide.column
+                    +comments
+                    .ui.header
+                        +icolor name='work'
+                        | internships
+                    if is_employee
+                        .ui.button
+                            |add internship
+                    each business_internships
+                        .ui.segment
+                            a.ui.header(href="/internship/#{_id}/view") #{title}
+                .five.wide.column
+                    .ui.header 
+                        +icolor name='briefcase'
+                        |employees
+                    .ui.header 
+                        +icolor name='filled-flag'
+                        |fans
+                    if is_fan
+                        .ui.basic.compact.button.remove_fan(title='leave fans')
+                            i.minus.icon
+                            |leave
+                    else 
+                        .ui.basic.compact.button.become_fan(title='become fan')
+                            i.plus.icon
+                            |join
+                    .ui.selection.list
+                        each business_fans
+                            a.item(href="/user/#{username}") #{username}
+                        
+                    //- 
+                    //- with _author_id
+                    //-     +user_card
+                    //- with current_doc
+                    //-     +voting_full
 
 
 
 template(name='business_edit')
     with current_doc
         .ui.stackable.padded.grid
-            .four.wide.column
-                .ui.header editing business
-                .ui.header #{title}
+            .row
+                .four.wide.center.aligned.column
+                .eight.wide.center.aligned.column
+                    .ui.header 
+                        +icolor name='edit'
+                        |#{title}
+                .four.wide.center.aligned.column
+                    a.ui.large.fluid.green.button(href="/m/business/#{_id}/view")
+                        i.checkmark.icon   
+                        |save     
+                    .ui.fluid.small.red.button.delete_business
+                        i.remove.icon   
+                        |delete
+            .five.wide.column
+                +image_edit key='image_id' direct=true
                 .ui.header 
                     +icolor name='shield'
                     |employees
@@ -71,9 +103,3 @@ template(name='business_edit')
             .eight.wide.column
                 +textarea_edit key='description' direct=true
             .four.wide.column
-                a.ui.large.fluid.button(href="/m/business/#{_id}/view")
-                    i.checkmark.green.icon   
-                    |save     
-                .ui.fluid.button.delete_internship
-                    i.remove.red.icon   
-                    |delete
