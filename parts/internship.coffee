@@ -1,48 +1,48 @@
 if Meteor.isClient
-    Router.route '/meal/:doc_id/edit', (->
+    Router.route '/internship/:doc_id/view', (->
         @layout 'layout'
-        @render 'meal_edit'
-        ), name:'meal_edit'
-    Router.route '/meal/:doc_id/view', (->
+        @render 'internship_view'
+        ), name:'internship_view'
+    Router.route '/internship/:doc_id/edit', (->
         @layout 'layout'
-        @render 'meal_view'
-        ), name:'meal_view'
+        @render 'internship_edit'
+        ), name:'internship_edit'
 
+    Template.internship_widget.onCreated ->
+        @autorun => Meteor.subscribe 'model_docs', 'internship'
 
-    Template.meal_widget.onCreated ->
-        @autorun => Meteor.subscribe 'model_docs', 'meal'
-
-    Template.meal_view.onCreated ->
+    Template.internship_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-
-
-    Template.meal_edit.onCreated ->
+        @autorun => Meteor.subscribe 'model_docs', 'business'
+    Template.internship_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'model_docs', 'recipe'
-    Template.meal_edit.helpers
-        # 'click .'
+    # Template.internship_edit.onCreated ->
+    #     @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+    #     @autorun => Meteor.subscribe 'model_docs', 'recipe'
+    # Template.internship_edit.helpers
+    #     # 'click .'
 
 
 
 
 
 
-    Template.meal_widget.events
+    Template.internship_widget.events
         'click .set_model': ->
             Session.set 'loading', true
             Meteor.call 'set_facets', @slug, ->
                 Session.set 'loading', false
-    Template.meal_widget.helpers
-        meals: ->
+    Template.internship_widget.helpers
+        internships: ->
             # console.log Meteor.user().roles
             Docs.find {
-                model:'meal'
+                model:'internship'
             }, sort:title:1
 
 
-    Template.meal_reviews.onCreated ->
+    Template.internship_applications.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'review'
-    Template.meal_reviews.helpers
+    Template.internship_applications.helpers
         can_leave_review: ->
             found_review =
                 Docs.findOne

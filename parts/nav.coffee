@@ -35,7 +35,7 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'all_users'
         # @autorun => Meteor.subscribe 'global_settings'
         @autorun => Meteor.subscribe 'my_cart'
-        @autorun => Meteor.subscribe 'model_docs', 'field_type'
+        # @autorun => Meteor.subscribe 'model_docs', 'field_type'
 
 
         # @autorun -> Meteor.subscribe 'current_session'
@@ -183,6 +183,26 @@ if Meteor.isClient
             Session.set 'loading', true
             # Meteor.call 'log_view', @_id, ->
             Meteor.call 'set_facets', 'model', ->
+                Session.set 'loading', false
+
+
+        'click .go_business': ->
+            Session.set 'loading', true
+            # Meteor.call 'log_view', @_id, ->
+            Meteor.call 'set_facets', 'business', ->
+                Session.set 'loading', false
+
+
+        'click .go_internship': ->
+            Session.set 'loading', true
+            # Meteor.call 'log_view', @_id, ->
+            Meteor.call 'set_facets', 'internship', ->
+                Session.set 'loading', false
+
+        'click .go_school': ->
+            Session.set 'loading', true
+            # Meteor.call 'log_view', @_id, ->
+            Meteor.call 'set_facets', 'school', ->
                 Session.set 'loading', false
 
 

@@ -22,6 +22,7 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'doc', Router.current().params.doc_id
         @autorun -> Meteor.subscribe 'model_fields_from_id', Router.current().params.doc_id
         @autorun -> Meteor.subscribe 'model_from_slug', Router.current().params.model_slug
+        @autorun -> Meteor.subscribe 'model_docs', 'field_type'
 
     Template.field_edit.onRendered ->
 

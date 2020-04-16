@@ -38,7 +38,7 @@ template(name='model_edit_dashboard')
         +textarea_edit key='description' label='description' direct=true
         +array_edit key='tags' label='tags' direct=true
         +text_edit key='collection' label='collection' direct=true
-        +multi_doc_edit key='actions' label='actions' ref_model='action' direct=true
+        +multi_doc_edit key='actions' label='actions' ref_model_slug='action' direct=true
         +text_edit key='app' label='app' direct=true
 
 
@@ -72,7 +72,7 @@ template(name='model_edit_modules')
 
 template(name='model_edit_permissions')
     .ui.header permissions
-    +multi_doc_edit key='view_roles' label='view roles' ref_model='role' direct=true
+    +multi_doc_edit key='view_roles' label='view roles' ref_model_slug='role' direct=true
 
 
 template(name='field_edit')
@@ -83,7 +83,7 @@ template(name='field_edit')
                 +icolor name=icon classes='ui mini inline image'
                 //- i.icon(class=icon)
             strong #{title}
-            | (#{field_type})
+            | (#{field_type_doc.slug})
             if faceted
                 i.filter.icon
             if sortable
@@ -107,24 +107,24 @@ template(name='field_edit')
                 //- +textarea_edit key='description' label='description' direct=true
                 .spacer
                 if is_admin
-                    +text_edit key='field_type' direct=true label='field type (old slug)'              
-                //- +single_doc_edit key='field_type' ref_model='field_type' label='field type' direct=true        
+                    +text_edit key='field_type_slug' direct=true label='field type (old slug)'              
+                //- +single_doc_edit key='field_type' ref_model_slug='field_type' label='field type' direct=true        
                 .spacer
                 +text_edit key='field_type_id' label='field type id' direct=true        
-                +single_doc_edit key='field_type_id' ref_model='field_type' label='field type id' direct=true        
+                +single_doc_edit key='field_type_id' ref_model_slug='field_type' label='field type id' direct=true        
                 .spacer
-                +multi_doc_edit key='view_roles' ref_model='role' label='view roles' direct=true icon='eye'          
+                +multi_doc_edit key='view_roles' ref_model_slug='role' label='view roles' direct=true icon='eye'          
                 .spacer
-                +multi_doc_edit key='edit_roles' ref_model='role' label='edit roles' direct=true icon='pencil'        
+                +multi_doc_edit key='edit_roles' ref_model_slug='role' label='edit roles' direct=true icon='pencil'        
                 //- +text_edit key='ref_model' label='Reference Model' direct=true
                 .spacer
                 +boolean_edit key='faceted' label='faceted' color_icon='diamond' direct=true
                 +boolean_edit key='sortable' label='sortable' color_icon='chevron-down' direct=true
                 .spacer
                 if is_ref  
-                    +single_doc_edit key='ref_model' ref_model='model' label='reference model' direct=true
+                    +single_doc_edit key='ref_model' ref_model_slug='model' label='reference model' direct=true
                 else if is_user_ref
-                    +single_doc_edit key='role_filter' ref_model='role' label='role filter' direct=true
+                    +single_doc_edit key='role_filter' ref_model_slug='role' label='role filter' direct=true
                 div             
                 +remove_button
                 if is_admin

@@ -1,0 +1,119 @@
+template(name='internship')
+    .ui.card
+        if picture
+            img.ui.image(src="{{c.url picture width=400 height=400}}")
+        else
+            img.ui.image(src="{{c.url image width=400 height=400 gravity='face' crop='fill'}}")
+        .content
+            a.ui.header(href="/internship/#{_id}") #{title}
+            div created {{from_now _timestamp}}
+            div available {{from_now date}}
+            +edit_button
+            +view_button
+            |available servings: #{available_servings}
+
+            if servings_available
+                .ui.button.internship_sign_up
+                    |sign up
+
+
+template(name='internship_widget')
+    .ui.segment
+        a.ui.header(href='/internships')
+            i.glass.cheers.icon
+            |internshipsharing
+        .ui.header upcoming internships
+        .ui.list
+            each internships
+                .item
+                    |#{title}
+                    each ingredients
+                        .ui.basic.label #{this}
+        .ui.button become a cook
+
+
+
+
+template(name='internship_card_template')
+    .ui.stackable.grid.segment
+        .four.wide.column
+            //- img.ui.fluid.image(src="{{c.url image }}")
+            img.ui.fluid.rounded.image(src="{{c.url image width=400 height=600 crop='fit'}}")
+        .twelve.wide.column
+            .ui.header #{title}
+            .ui.inline.small.header ingredients
+            each ingredients
+                .ui.basic.label #{this}
+            .ui.inline.small.header tags
+            each tags
+                .ui.basic.label #{this}
+            .ui.inline.small.header location_tags
+            each location_tags
+                .ui.basic.label #{this}
+            .ui.header available {{from_now date}} at #{time_available}
+            .ui.header servings available #{servings_available}
+            a.ui.large.basic.icon.button(href="/internship/#{_id}/edit")
+                i.pencil.icon
+            a.ui.large.basic.icon.button(href="/internship/#{_id}/view")
+                i.right.chevron.icon        
+            //- +edit_button
+            //- +view_button
+
+template(name='internship_applications')
+    .ui.segment
+        .ui.header 
+            +i name='invoice'
+            |reviews
+        each reviews
+            .ui.header #{text}
+            each tags
+                .ui.basic.tag #{this}
+            .ui.header vote #{vote}
+
+
+
+template(name='internship_view')
+    with current_doc
+        .ui.stackable.padded.grid
+            .five.wide.column
+                .ui.header #{title}
+                +array_view key='tags' direct=true
+                +array_view key='skill_tags' direct=true
+                +array_view key='location_tags' direct=true
+            .six.wide.column
+                img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
+                +html_view key='description' direct=true
+                +comments
+            .five.wide.column
+                a.ui.large.basic.button(href="/internship/#{_id}/edit")
+                    i.pencil.icon
+                    |edit
+                .ui.header business 
+                a.ui.header(href="/business/#{business_id}/view") #{business_doc.title}
+                with _author_id
+                    +user_card
+                with current_doc
+                    +voting_full
+
+
+
+template(name='internship_edit')
+    with current_doc
+        .ui.stackable.padded.grid
+            .five.wide.column
+                .ui.header editing internship
+                .ui.header #{title}
+                +text_edit key='title' label='title' direct=true
+                +array_edit key='skill_tags' label='skill tags' direct=true
+                +array_edit key='location_tags' direct=true
+                .ui.header 
+                    |business
+                    |#{business_id}
+                +date_edit key='start_date' label='start date' direct=true
+                +date_edit key='end_date' label='end date' direct=true
+            .six.wide.column
+                +textarea_edit key='description' label='description' direct=true
+            .five.wide.column
+                a.ui.large.fluid.button(href="/internship/#{_id}/view")
+                    i.checkmark.green.icon   
+                    |save     

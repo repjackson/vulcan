@@ -14,10 +14,16 @@ Meteor.publish 'model_docs', (model)->
             app:'vulcan'
 
 Meteor.publish 'model_docs_from_model_id', (model_id)->
+    console.log 'pulling model id', model_id
     model = Docs.findOne model_id
-    # console.log 'pulling doc'
     Docs.find
         model:model.slug
+
+Meteor.publish 'model_docs_from_model_slug', (slug)->
+    # console.log 'pulling model id', model_id
+    # model = Docs.findOne model_id
+    Docs.find
+        model:slug
 
 Meteor.publish 'user_from_username', (username)->
     # console.log 'pulling doc'

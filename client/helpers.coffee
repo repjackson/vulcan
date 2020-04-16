@@ -42,8 +42,8 @@ Template.registerHelper 'youtube_id', () ->
         console.log 'error'
 
 
-
-
+Template.registerHelper 'business_doc', ()->
+    Docs.findOne @business_id
 
 Template.registerHelper 'delta_key_value_is', (key, value)->
     # console.log 'key', key
@@ -233,11 +233,12 @@ Template.registerHelper 'field_type_doc', ->
         Docs.findOne
             model:'field_type'
             _id: @field_type_id
+    # if doc
+    #     console.log 'found field_type doc', doc
+    # else
+    #     console.log 'NO found field_type doc'
     if doc
-        console.log 'found field_type doc', doc
-    else
-        console.log 'NO found field_type doc'
-    doc
+        doc
 
 
 Template.registerHelper 'view_template', ->
@@ -255,6 +256,7 @@ Template.registerHelper 'edit_template', ->
         Docs.findOne
             model:'field_type'
             _id: @field_type_id
+
     # console.log 'field type doc', field_type_doc
     "#{field_type_doc.slug}_edit"
 
@@ -296,7 +298,7 @@ Template.registerHelper 'fields', () ->
         cur
 
 Template.registerHelper 'edit_fields', () ->
-    console.log 'finding edit fields'
+    # console.log 'finding edit fields'
     model = Docs.findOne
         model:'model'
         slug:Router.current().params.model_slug

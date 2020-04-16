@@ -52,7 +52,7 @@ Meteor.methods
                             icon:field.icon
                             key:field.key
                             rank:field.rank
-                            field_type:field.field_type
+                            field_type:field.field_type_slug
                             filters:[]
                             res:[]
                         }

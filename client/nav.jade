@@ -7,12 +7,21 @@ template(name='nav')
         a.item.go_home(href='/' class="{{active_path '/'}}" title='models')
             i.large.hammer.icon
             |vulcan
+        a.icon.item.mobile.hidden(href="/m/internship" class="{{active_path '/m/internship'}}" title='internships')
+            +icolor name='work'
+        a.icon.item.mobile.hidden(href="/m/business" class="{{active_path '/m/business'}}" title='businesses')
+            +icolor name='business'
+        a.icon.item.mobile.hidden(href="/m/school" class="{{active_path '/m/school'}}" title='businesses')
+            +icolor name='school'
         if in_role 'admin'
             a.icon.item.mobile.hidden(href='/users' class="{{active_path '/users'}}" title='users')
                 i.large.users.icon
         if in_role 'teacher'
             a.icon.item.mobile.hidden(href="/development" class="{{active_path '/development'}}" title='development')
                 i.line.chart.large.icon
+        //- if in_role 'student'
+        //-     a.icon.item.mobile.hidden(href="/m/internship" class="{{active_path '/m/internship'}}" title='internships')
+        //-         +icolor name='work'
         if in_role 'business'
             a.icon.item.mobile.hidden(href="/development" class="{{active_path '/development'}}" title='development')
                 i.line.chart.large.icon

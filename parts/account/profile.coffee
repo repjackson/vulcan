@@ -11,78 +11,30 @@ if Meteor.isClient
         @layout 'profile_layout'
         @render 'user_about'
         ), name:'user_about'
-    Router.route '/user/:username/finance', (->
+    Router.route '/user/:username/internships', (->
         @layout 'profile_layout'
-        @render 'user_finance'
-        ), name:'user_finance'
-    Router.route '/user/:username/tutoring', (->
-        @layout 'profile_layout'
-        @render 'user_tutoring'
-        ), name:'user_tutoring'
-    Router.route '/user/:username/groups', (->
-        @layout 'profile_layout'
-        @render 'user_groups'
-        ), name:'user_groups'
-    Router.route '/user/:username/upvotes', (->
-        @layout 'profile_layout'
-        @render 'user_upvotes'
-        ), name:'user_upvotes'
-    Router.route '/user/:username/downvotes', (->
-        @layout 'profile_layout'
-        @render 'user_downvotes'
-        ), name:'user_downvotes'
-    Router.route '/user/:username/karma', (->
-        @layout 'profile_layout'
-        @render 'user_karma'
-        ), name:'user_karma'
-    Router.route '/user/:username/cart', (->
-        @layout 'profile_layout'
-        @render 'user_cart'
-        ), name:'user_cart'
-    Router.route '/user/:username/payment', (->
-        @layout 'profile_layout'
-        @render 'user_payment'
-        ), name:'user_payment'
+        @render 'user_internships'
+        ), name:'user_internships'
     Router.route '/user/:username/contact', (->
         @layout 'profile_layout'
         @render 'user_contact'
         ), name:'user_contact'
-    Router.route '/user/:username/brain', (->
-        @layout 'profile_layout'
-        @render 'user_brain'
-        ), name:'user_brain'
     Router.route '/user/:username/stats', (->
         @layout 'profile_layout'
         @render 'user_stats'
         ), name:'user_stats'
-    Router.route '/user/:username/votes', (->
-        @layout 'profile_layout'
-        @render 'user_votes'
-        ), name:'user_votes'
     Router.route '/user/:username/jobs', (->
         @layout 'profile_layout'
         @render 'user_jobs'
         ), name:'user_jobs'
-    Router.route '/user/:username/requests', (->
-        @layout 'profile_layout'
-        @render 'user_requests'
-        ), name:'user_requests'
     Router.route '/user/:username/feed', (->
         @layout 'profile_layout'
         @render 'user_feed'
         ), name:'user_feed'
-    Router.route '/user/:username/tags', (->
-        @layout 'profile_layout'
-        @render 'user_tags'
-        ), name:'user_tags'
     Router.route '/user/:username/tasks', (->
         @layout 'profile_layout'
         @render 'user_tasks'
         ), name:'user_tasks'
-    Router.route '/user/:username/transactions', (->
-        @layout 'profile_layout'
-        @render 'user_transactions'
-        ), name:'user_transactions'
     Router.route '/user/:username/messages', (->
         @layout 'profile_layout'
         @render 'user_messages'
@@ -91,42 +43,18 @@ if Meteor.isClient
         @layout 'profile_layout'
         @render 'user_bookmarks'
         ), name:'user_bookmarks'
-    Router.route '/user/:username/documents', (->
-        @layout 'profile_layout'
-        @render 'user_documents'
-        ), name:'user_documents'
-    Router.route '/user/:username/social', (->
-        @layout 'profile_layout'
-        @render 'user_social'
-        ), name:'user_social'
     Router.route '/user/:username/friends', (->
         @layout 'profile_layout'
         @render 'user_friends'
         ), name:'user_friends'
-    Router.route '/user/:username/tests', (->
+    Router.route '/user/:username/badges', (->
         @layout 'profile_layout'
-        @render 'user_tests'
-        ), name:'user_tests'
-    Router.route '/user/:username/passages', (->
-        @layout 'profile_layout'
-        @render 'user_passages'
-        ), name:'user_passages'
-    Router.route '/user/:username/questions', (->
-        @layout 'profile_layout'
-        @render 'user_questions'
-        ), name:'user_questions'
-    Router.route '/user/:username/awards', (->
-        @layout 'profile_layout'
-        @render 'user_awards'
-        ), name:'user_awards'
+        @render 'user_badges'
+        ), name:'user_badges'
     Router.route '/user/:username/events', (->
         @layout 'profile_layout'
         @render 'user_events'
         ), name:'user_events'
-    Router.route '/user/:username/mentorship', (->
-        @layout 'profile_layout'
-        @render 'user_mentorship'
-        ), name:'user_mentorship'
 
 
     Template.profile_layout.onCreated ->
@@ -226,50 +154,6 @@ if Meteor.isClient
 
 
 
-    Template.user_sessions_small.onCreated ->
-        @autorun -> Meteor.subscribe 'user_model_docs', Router.current().params.username, 'test_session'
-    Template.user_sessions_small.onRendered ->
-    Template.user_sessions_small.events
-        # 'click .delete_session': ->
-        #     if confirm 'Confirm delete session?'
-        #         Docs.remove @_id
-    Template.user_sessions_small.helpers
-        sessions: ->
-            user = Meteor.users.findOne username:Router.current().params.username
-            Docs.find
-                model:'test_session'
-                _author_id: user._id
-
-
-
-
-
-    Template.user_session.events
-        'click .delete_session': (e,t)->
-            console.log @
-            # $(e.currentTarget).closest('.ui.basic.modal').modal('show')
-            $('.ui.basic.modal').modal({
-                closable: false
-                onDeny: ->
-                    # window.alert('Wait not yet!')
-                    # false
-                onApprove: =>
-                    # window.alert('Approved!')
-                    $(e.currentTarget).closest('.item').transition('fly right', 1000)
-                    Meteor.setTimeout =>
-                        Docs.remove @_id
-                    , 1000
-                }).modal('show')
-
-            # if confirm 'Confirm delete session?'
-
-
-
-
-
-
-
-
     Template.user_alerts_small.helpers
         alerts: ->
             Docs.find
@@ -277,27 +161,15 @@ if Meteor.isClient
 
 
 
-    Template.user_bookmarks_small.onCreated ->
-        @autorun -> Meteor.subscribe 'user_bookmarks', Router.current().params.username
-    Template.user_bookmarks_small.onRendered ->
-    Template.user_bookmarks_small.helpers
-        bookmarks: ->
+
+    Template.user_internships.onCreated ->
+        @autorun -> Meteor.subscribe 'user_model_docs', Router.current().params.username, 'internship'
+    Template.user_internships.onRendered ->
+    Template.user_internships.helpers
+        internships: ->
             user = Meteor.users.findOne username:Router.current().params.username
             Docs.find
-                _id:$in:user.bookmark_ids
-
-
-
-
-
-    Template.user_questions.onCreated ->
-        @autorun -> Meteor.subscribe 'user_model_docs', Router.current().params.username, 'question'
-    Template.user_questions.onRendered ->
-    Template.user_questions.helpers
-        questions: ->
-            user = Meteor.users.findOne username:Router.current().params.username
-            Docs.find
-                model:'question'
+                model:'internship'
                 _author_id: user._id
                 has_correct_answer:true
 
