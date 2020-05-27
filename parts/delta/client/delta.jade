@@ -23,7 +23,6 @@ template(name='delta')
                         if is_admin
                             .ui.icon.compact.basic.button.add_model_doc(title="add #{slug}")
                                 i.plus.large.green.icon
-                        //- +user_list_toggle key='bookmark_ids' add_icon='bookmark outline' remove_icon='bookmark' label="bookmark"
                             .ui.icon.basic.button.edit_model(title='configure model')
                                 i.cog.icon
                         if current_delta
@@ -159,8 +158,11 @@ template(name='delta')
             //-         .ui.header calculations
             //-         .ui.button rerun calculations
         unless current_model
-            if is_admin
-                .ui.big.button.create_model create model
+            .ui.basic.segment
+                if is_admin
+                    .ui.big.button.create_model 
+                        i.shield.icon
+                        |create model
             //- else 
                 //- .ui.header model not found
             

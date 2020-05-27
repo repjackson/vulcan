@@ -47,10 +47,10 @@ if Meteor.isClient
         @layout 'profile_layout'
         @render 'user_friends'
         ), name:'user_friends'
-    Router.route '/user/:username/badges', (->
+    Router.route '/user/:username/awards', (->
         @layout 'profile_layout'
-        @render 'user_badges'
-        ), name:'user_badges'
+        @render 'user_awards'
+        ), name:'user_awards'
     Router.route '/user/:username/events', (->
         @layout 'profile_layout'
         @render 'user_events'

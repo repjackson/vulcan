@@ -1,0 +1,83 @@
+template(name='school_item')
+    .ui.segment.grid
+        .four.wide.column
+            .image
+                +image_view key='image_id' direct=true
+        .twelve.wide.column
+            .ui.header #{title}
+            a.ui.button(href="/school/#{_id}/view")
+                |view
+
+
+
+
+
+template(name='school_view')
+    with current_doc
+        .ui.stackable.padded.grid
+            .centered.middle.aligned.row
+                .four.wide.center.aligned.column
+                    a.ui.basic.button(href="/m/school")
+                        +icolor name='school' classes='ui inline mini image'
+                        |schools
+                .eight.wide.center.aligned.column
+                    .ui.header #{title}
+                .four.wide.center.aligned.column
+                    a.ui.large.basic.button(href="/school/#{_id}/edit")
+                        i.pencil.icon
+                        |edit
+            .five.wide.column
+                +image_view key='image_id' label='image' direct=true
+                +html_view key='description' direct=true
+            .six.wide.column
+                +comments
+                .ui.header 
+                    +icolor name='invoice'
+                    |applications
+                unless has_applied
+                    .ui.basic.button.apply
+                        i.green.edit.icon
+                        |apply
+                .ui.selection.animated.large.list
+                    each school_applications
+                        a.item(href="/application/#{_id}/view")
+                            .content
+                                .header #{_author_username} #{when}
+            .five.wide.column
+                .ui.header 
+                    +icolor name='shield'
+                    |educators
+                .ui.header 
+                    +icolor name='students'
+                    |students
+                a.ui.header(href="/business/#{business_id}/view") #{business_doc.title}
+                with _author_id
+                    +user_card
+                with current_doc
+                    +voting_full
+
+
+
+template(name='school_edit')
+    with current_doc
+        .ui.stackable.padded.grid
+            .five.wide.column
+                .ui.header editing school
+                .ui.header #{title}
+                +text_edit key='title' label='title' direct=true
+                
+                div
+                +image_edit key='image_id' label='image' direct=true
+                div
+                +text_edit key='city' label='city' direct=true
+                div
+                +text_edit key='state' label='state' direct=true
+                div
+                +multi_user_edit key='employee_ids' label='employee_ids' direct=true
+                +multi_user_edit key='student_ids' label='student ids' direct=true
+            .six.wide.column
+                +textarea_edit key='description' label='description' direct=true
+            .five.wide.column
+                a.ui.large.fluid.button(href="/school/#{_id}/view")
+                    i.checkmark.green.icon   
+                    |save     

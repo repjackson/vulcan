@@ -35,7 +35,7 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'all_users'
         # @autorun => Meteor.subscribe 'global_settings'
         @autorun => Meteor.subscribe 'my_cart'
-        # @autorun => Meteor.subscribe 'model_docs', 'field_type'
+        @autorun => Meteor.subscribe 'model_docs', 'field_type'
 
 
         # @autorun -> Meteor.subscribe 'current_session'
@@ -137,31 +137,6 @@ if Meteor.isClient
 
 
     Template.nav.events
-        # 'click .toggle_sidebar': ->
-        #     $('.ui.sidebar')
-        #         .sidebar('setting', 'transition', 'overlay')
-        #         .sidebar('toggle')
-
-        # 'mouseenter .item': (e,t)->
-        #     $(e.currentTarget).closest('.item').transition('pulse', 500)
-        # 'click .menu_dropdown': ->
-        #     $('.menu_dropdown').dropdown(
-        #         on:'hover'
-        #     )
-
-        # 'click .item': (e,t)->
-        #     $(e.currentTarget).closest('.item').transition(
-        #         animation: 'pulse'
-        #         duration: 250
-        #     )
-
-
-        'click .new_act_test': ->
-            new_session_id =
-                Docs.insert
-                    model:'test_session'
-            Router.go "/test/#{new_session_id}/take"
-
         'click #logout': ->
             Session.set 'logging_out', true
             Meteor.logout ->
@@ -186,23 +161,35 @@ if Meteor.isClient
                 Session.set 'loading', false
 
 
-        'click .go_business': ->
+        'click .business': ->
             Session.set 'loading', true
             # Meteor.call 'log_view', @_id, ->
             Meteor.call 'set_facets', 'business', ->
                 Session.set 'loading', false
 
 
-        'click .go_internship': ->
+        'click .internship': ->
             Session.set 'loading', true
             # Meteor.call 'log_view', @_id, ->
             Meteor.call 'set_facets', 'internship', ->
                 Session.set 'loading', false
 
-        'click .go_school': ->
+        'click .school': ->
             Session.set 'loading', true
             # Meteor.call 'log_view', @_id, ->
             Meteor.call 'set_facets', 'school', ->
+                Session.set 'loading', false
+
+        'click .student': ->
+            Session.set 'loading', true
+            # Meteor.call 'log_view', @_id, ->
+            Meteor.call 'set_facets', 'student', ->
+                Session.set 'loading', false
+
+        'click .teacher': ->
+            Session.set 'loading', true
+            # Meteor.call 'log_view', @_id, ->
+            Meteor.call 'set_facets', 'student', ->
                 Session.set 'loading', false
 
 

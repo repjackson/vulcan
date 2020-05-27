@@ -258,10 +258,16 @@ Template.registerHelper 'view_template', ->
 
 
 Template.registerHelper 'edit_template', ->
-    field_type_doc =
-        Docs.findOne
-            model:'field_type'
-            _id: @field_type_id
+    if @field_type_id
+        field_type_doc =
+            Docs.findOne
+                model:'field_type'
+                _id: @field_type_id
+    else if @field_type
+        field_type_doc =
+            Docs.findOne
+                model:'field_type'
+                slug: @field_type
 
     # console.log 'field type doc', field_type_doc
     "#{field_type_doc.slug}_edit"

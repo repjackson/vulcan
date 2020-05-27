@@ -1,53 +1,23 @@
 template(name='profile_layout')
     //- img.ui.fluid.image.home_banner(src="{{c.url 'nightbg' width=1000 height=1000 crop='crop'}}")    
     +nav
-    a.ui.icon.button(href="/m/model")
-        i.home.icon
     with user
         .ui.stackable.padded.grid
-            .three.wide.column
+            .four.wide.column
                 img.ui.centered.small.rounded.profile_image.image(src="{{c.url profile_image_id height=200 width=200 gravity='face' crop='fill'}}")
                 .ui.center.aligned.basic.segment
                     a(href="/user/#{username}")
                         .ui.center.aligned.inline.header
                             | #{user.first_name} #{user.last_name}
                         //- div
-                        //- .ui.small.inline.header @#{user.username}        
-                .ui.fluid.vertical.pointing.menu(class="{{currentUser.nav_color}}")
-                    a.item(href="/user/#{username}/dashboard" class="{{active_path regex='user_dashboard'}}")
-                        i.grey.dashboard.icon
-                        |dashboard
-                    a.item(href="/user/#{username}/events" class="{{active_path regex='user_events'}}")
-                        i.grey.calendar.icon
-                        |events
-                    //- a.item(href="/user/#{username}/mentorship" class="{{active_path regex=user_mentorship}}")
-                    //-     |mentorship
-                    a.item(href="/user/#{username}/profile" class="{{active_path regex=user_offers}}")
-                        |profile
-                    //- a.item(href="/user/#{username}/tutoring" class="{{active_path regex='user_tutoring'}}")
-                    //-     i.grey.chalkboard.icon
-                    //-     |tutoring
-                    a.item(href="/user/#{username}/internships" class="{{active_path regex='user_internships'}}")
-                        i.grey.coins.icon
-                        |internships
-
-                    a.item(href="/user/#{username}/awards" class="{{active_path regex=user_awards}}")
-                        i.grey.award.icon
-                        |awards
-                    a.item(href="/user/#{username}/friends" class="{{active_path regex='user_friends'}}")
-                        i.grey.users.icon
-                        |friends
-                    a.item(href="/user/#{username}/messages" class="{{active_path regex='user_messages'}}")
-                        i.grey.envelope.icon
-                        |messages
-                //- if is_current_user
-                a.ui.large.fluid.button(href="/user/#{username}/edit")
+                        //- .ui.small.inline.header @#{user.username}  
+                a.ui.large.fluid.basic.button(href="/user/#{username}/edit")
                     i.cog.icon
                     |account
-                a.ui.fluid.button.logout(href="#")
+                a.ui.fluid.basic.button.logout(href="#")
                     i.sign.out.alternate.icon
                     |log out
-                a.ui.fluid.button.logout_other_clients(href="#" title='logout other clients')
+                a.ui.fluid.basic.button.logout_other_clients(href="#")
                     //- i.globe.icon
                     |log out other clients
                 if is_admin
@@ -57,8 +27,37 @@ template(name='profile_layout')
                             |roles
                         each roles
                             .ui.basic.label #{this}
+                      
+            .twelve.wide.column
+                a.ui.basic.button(href="/user/#{username}/dashboard" class="{{active_path regex='user_dashboard'}}")
+                    +icolor name='dashboard' classes='ui inline mini image'
+                    |dashboard
+                a.ui.basic.button(href="/user/#{username}/about" class="{{active_path regex=user_about}}")
+                    +icolor name='info' classes='ui inline mini image'
+                    |about
+
+                a.ui.basic.button(href="/user/#{username}/events" class="{{active_path regex='user_events'}}")
+                    +icolor name='calendar' classes='ui inline mini image'
+                    |events
+                //- a.ui.basic.button(href="/user/#{username}/mentorship" class="{{active_path regex=user_mentorship}}")
+                //-     |mentorship
+                //- a.ui.basic.button(href="/user/#{username}/tutoring" class="{{active_path regex='user_tutoring'}}")
+                //-     i.grey.chalkboard.icon
+                //-     |tutoring
+                a.ui.basic.button(href="/user/#{username}/internships" class="{{active_path regex='user_internships'}}")
+                    +icolor name='work' classes='ui inline mini image'
+                    |internships
+                a.ui.basic.button(href="/user/#{username}/awards" class="{{active_path regex=user_awards}}")
+                    +icolor name='prize' classes='ui inline mini image'
+                    |awards
+                a.ui.basic.button(href="/user/#{username}/friends" class="{{active_path regex='user_friends'}}")
+                    +icolor name='groups' classes='ui inline mini image'
+                    |friends
+                a.ui.basic.button(href="/user/#{username}/messages" class="{{active_path regex='user_messages'}}")
+                    +icolor name='chat' classes='ui inline mini image'
+                    |messages
+                //- if is_current_user
                 //- +user_friend_button            
-            .thirteen.wide.column
                 //- each user_sections
                 //-     a.ui.button(href="/user/#{username}/#{slug}")
                 //-         i.icon(class=icon)
@@ -70,19 +69,35 @@ template(name='profile_layout')
 
 template(name='user_dashboard')             
     .ui.center.aligned.header 
-        i.dashboard.icon
+        +icolor name='dashboard'
         |dashboard
     .ui.stackable.padded.grid
-        .three.column.row
-            .column
+        .row
+            .five.wide.column
                 .ui.segment
-                    .ui.header stats
-            .column
+                    .ui.header 
+                        +icolor name='work'
+                        |internships
+                .spacer    
+            .five.wide.column
                 .ui.segment
-                    .ui.header badges
-            .column
+                    .ui.header 
+                        +icolor name='bookmark'
+                        |bookmarks
+                .spacer    
+            .five.wide.column
                 .ui.segment
-                    .ui.header progress
+                    .ui.header 
+                        +icolor name='chat'
+                        |messages
+                .spacer    
+            .five.wide.column
+                .ui.segment
+                    .ui.header 
+                        +icolor name='chat'
+                        |messages
+                .spacer    
+                    
         .three.column.row
 
 
